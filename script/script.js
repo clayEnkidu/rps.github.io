@@ -2,6 +2,10 @@ const arr = ["Rock", "Paper", "Scissor"]
 let computerSelection;
 let botScore = 0;
 let playerScore = 0;
+const rock = document.querySelector("#rock")
+const paper = document.querySelector("#paper")
+const sci = document.querySelector("#scissor")
+
 
 //Computer choice
 function getComputerChoice() {
@@ -13,10 +17,16 @@ function getComputerChoice() {
 }
 
 //User Choice
-function userChoice() {
-  return choice
+function userChoice(button) {
+  const user = button.getAttribute("id");
+  console.log(user)
+  return user;
 }
 
+
+const scoreDiv = document.querySelector("#score")
+const childTxt = document.createElement("h2")
+const childScr = document.createElement("h3")
 //PlayRound Main Function
 function playRound(player, bot) {
 
@@ -30,30 +40,43 @@ function playRound(player, bot) {
     || player == "paper" && bot == "scissor"
     || player == "scissor" && bot == "rock"
   ) {
-    console.log(`You Lose! ${bot} beats ${player}`)
+    childTxt.textContent =  `You Lose! ${bot} beats ${player}`;
     botScore += 1;
   }
 
   else {
-    console.log(`You won! ${player} beats ${bot}`)
+    childTxt.textContent = `You won! ${player} beats ${bot}`;
     playerScore += 1;
 
   }
+
+  childScr.textContent = `Player's Score: ${playerScore}\nComputer's Score: ${botScore}`
+
+  scoreDiv.appendChild(childTxt);
+  scoreDiv.appendChild(childScr);
+
+  
 }
 
 
 // New Main Function GAme to play 5 Rounds!
 
-
+console.log("Before game round")
 function game(us, pc) {
+  console.log("Game Started!")
   playRound(us, pc)
 }
 
-game(prompt("Rock, Paper, Scissor?").toLowerCase(), getComputerChoice())
-game(prompt("Rock, Paper, Scissor?").toLowerCase(), getComputerChoice())
-game(prompt("Rock, Paper, Scissor?").toLowerCase(), getComputerChoice())
-game(prompt("Rock, Paper, Scissor?").toLowerCase(), getComputerChoice())
-game(prompt("Rock, Paper, Scissor?").toLowerCase(), getComputerChoice())
+
+let userFinal = userChoice()
+console.log("UserCHoose: " + userFinal)
+let comFinal = getComputerChoice()
+console.log("Computer CHoose: " + comFinal)
+
+document.addEventListener("DOMContentLoaded", ()=>{
+
+  game(userChoice(), getComputerChoice());
+})
 
 
 let player = parseInt(playerScore)
